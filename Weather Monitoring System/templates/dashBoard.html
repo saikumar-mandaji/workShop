@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center; /* Center the title */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .user-info {
+            display: flex;
+            justify-content: flex-end; /* Align user info to the right */
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .user-name {
+            font-weight: bold;
+            margin-right: 10px; /* Add margin between username and logout button */
+        }
+
+        .logout-btn {
+            background-color: #ff3b3b;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.2s ease-in-out;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .scrollable-tbody {
+            max-height: 200px;
+            overflow: auto;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+        }
+
+        .symbol {
+            border-radius: 15%;
+            height: 100px;
+            width: 100px;
+        }
+
+        .animate-fade {
+            animation: fade-in 1s ease-in-out;
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .predict-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .predict-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .submit-button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 16px;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .output-window {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .output-window img {
+            max-width: 60%;
+            border: solid rgb(0, 255, 21);
+            border-radius: 10px;
+        }
+        .title-name{
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2 class="title-name">Weather Monitoring System</h2> <!-- Centered title -->
+        <div class="user-info">
+            <span class="user-name">{{ name }}</span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="cards">
+            <div class="card animate-fade">
+                <h2>Temperature</h2>
+                <img class="symbol" src="static/images/temp1.gif" alt="">
+                <p id="t">23.89 C</p>
+            </div>
+            <div class="card animate-fade">
+                <h2>Humidity</h2>
+                <img class="symbol" src="static/images/Humi.gif" alt="">
+                <p id="h">23.89</p>
+            </div>
+        </div>
+            </div>
+<script>
+    setInterval(function load(){
+        var ft =fetch('/main', {
+              method: 'POST', // or 'PUT'
+              body:"post"
+              })
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('t').innerHTML = data["T"]
+            document.getElementById('h').innerHTML = data["H"]
+          })
+          .catch((error) => {
+                console.error('Error:', error);
+          });	
+        }
+        , 1000);
+</script>
+</body>
+</html>
