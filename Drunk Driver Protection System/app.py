@@ -3,7 +3,7 @@ from flask import Flask,render_template,request
 
 alc = 0
 
-th = 30
+th = 400
 
 bt=1
 
